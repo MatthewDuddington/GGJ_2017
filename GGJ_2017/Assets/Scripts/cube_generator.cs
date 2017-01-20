@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class cube_generator : MonoBehaviour
 {
-    public Vector3 origin_point;  
     public GameObject prefabCube;
     public GameObject[,] cubeGrid;
 
@@ -18,7 +17,6 @@ public class cube_generator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        origin_point = transform.position;
         // Create Gameobjects
 
         cubeGrid = new GameObject[x_grid_size, z_grid_size];
@@ -27,12 +25,10 @@ public class cube_generator : MonoBehaviour
         {
             for (int z = 0; z != z_grid_size; z++)
             {
-
-                cubeGrid[x, z] = Instantiate(prefabCube, new Vector3(x, x*0.1f, z), Quaternion.identity);
+                cubeGrid[x, z] = Instantiate(prefabCube, new Vector3(x - x_grid_size/2, 0f, z - x_grid_size/2), Quaternion.identity);
 
                 //cubeGrid[x][z] = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 //cubeGrid[x][z].transform.position = new Vector3(x*1.1f,0, z*1.1f);
-
             }
 
         }
