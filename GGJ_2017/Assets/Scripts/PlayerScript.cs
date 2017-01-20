@@ -21,28 +21,23 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-          if (moving)
-          {
-               
-          }
 		if (Input.GetKey(KeyCode.W))
           {
                rb.AddForce(0f, 0f, -CharacterSpeed);
           }
-          else if (Input.GetKey(KeyCode.S))
+          if (Input.GetKey(KeyCode.S))
           {
                rb.AddForce(0f, 0f, CharacterSpeed);
           }
-          else if (Input.GetKey(KeyCode.A))
+          if (Input.GetKey(KeyCode.A))
           {
                rb.AddForce(CharacterSpeed, 0f, 0f);
           }
-          else if (Input.GetKey(KeyCode.D))
+          if (Input.GetKey(KeyCode.D))
           {
                rb.AddForce(-CharacterSpeed, 0f, 0f);
           }
-          else if (Input.GetKeyDown(KeyCode.Space))
+          if (Input.GetKeyDown(KeyCode.Space))
                rb.AddForce(0f, JumpStrength, 0f);
      }
 
