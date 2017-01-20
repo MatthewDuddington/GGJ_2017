@@ -50,7 +50,7 @@ public class cube_generator : MonoBehaviour
             {
                 Vector3 current_position = cubeGrid[x, z].transform.position;
            
-                Vector3 new_position = new Vector3(current_position.x, amplitude * Mathf.Sin(Time.time * speed + current_position.x * length), current_position.z);
+                Vector3 new_position = new Vector3(current_position.x, amplitude * Mathf.Sin(Time.time * speed + current_position.x * length) * Mathf.Sin(Time.time * speed + current_position.z * length), current_position.z);
                 //print("amp " + amplitude);
                 //print(amplitude * Mathf.Sin(Time.time * speed + current_position.x * length));
                 cubeGrid[x, z].transform.position = new_position;
