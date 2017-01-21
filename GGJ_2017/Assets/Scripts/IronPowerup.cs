@@ -22,4 +22,12 @@ public class IronPowerup : MonoBehaviour {
 		}
 		return ironPowerups[currentIronPowerupIndex];
 	}
+
+	public static void LoadIronPowerups() {
+		for(int i = 0; i < ironPowerups.Length; i++) {
+			ironPowerups[i] = new IronPowerup();
+		}
+
+		//TODO Randomly distribute around level
+	}
 }
