@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609943156554726}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.4, y: 8.5, z: 5.1}
+  m_LocalPosition: {x: -4.150791, y: 3.77, z: -10.28463}
   m_LocalScale: {x: 8, y: 1, z: 3}
   m_Children:
   - {fileID: 4976162056229590}
@@ -197,6 +197,7 @@ MonoBehaviour:
   DamageFromImpactPer1UnitOfSpeed: 1
   PushBackModifier: 100
   floatingMultiplier: 1
+  boatHalfHeight: 0
 --- !u!114 &114038604729112524
 MonoBehaviour:
   m_ObjectHideFlags: 1
