@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1063810583969300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,16 +88,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1063810583969300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1002227a76d1d5743b0479b8274d7bd1, type: 3}
+  m_Script: {fileID: 11500000, guid: bf72303f5fc4d4f469fb2cb62ff2870e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 15
-  speed: 1.29
-  rippleX: 10
-  rippleZ: 10
-  xLength: 0
-  rippleLength: 0.05
-  zLength: 0
+  scaleZ: 1.61
+  meshWidthZ: 0.1
+  meshWidthX: 0.1
+  speed: 1
+  rippleX: 3.99
+  rippleZ: -10.3
+  xLength: 0.3
+  rippleLength: -0.32
+  zLength: 0.3
   middle: {fileID: 0}
   xSize: 200
   ySize: 200

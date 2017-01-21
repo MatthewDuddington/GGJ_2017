@@ -94,7 +94,7 @@ public class wave : MonoBehaviour {
                Vector3 vertex = baseHeight[i];
                Vector3 globalVertex = transform.TransformPoint(vertex);
                //vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x + baseHeight[i].y + baseHeight[i].z + position.x + position.y + position.z) * scale;
-               vertex.y = ProbingSideWaves(globalVertex.x, globalVertex.z, Time.time);
+               vertex.y = ProbingFunction2(globalVertex.x, globalVertex.z, Time.time);
 
                //vertex.y += Mathf.PerlinNoise(baseHeight[i].x + noiseWalk, baseHeight[i].y + Mathf.Sin(Time.time * 0.1f)) * noiseStrength;
                vertices[i] = vertex;
