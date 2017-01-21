@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114038604729112524}
   - component: {fileID: 54887135385840528}
   - component: {fileID: 136562576725892146}
+  - component: {fileID: 114030029904578702}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -180,6 +181,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114030029904578702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609943156554726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05eab85876af03c488b0eb2c81b0f2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SqrMinimumDistanceBetweenBoats: 0.5
+  BoatDurability: 100
+  DamageFromImpactPer1UnitOfSpeed: 1
+  PushBackModifier: 100
+  floatingMultiplier: 1
 --- !u!114 &114038604729112524
 MonoBehaviour:
   m_ObjectHideFlags: 1

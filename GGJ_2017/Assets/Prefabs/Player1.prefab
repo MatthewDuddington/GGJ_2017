@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114303848191517324}
   - component: {fileID: 54506365200228448}
   - component: {fileID: 136635577357902268}
+  - component: {fileID: 114978589381052978}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -209,6 +210,22 @@ MonoBehaviour:
   JumpStrength: 100
   IsControllable: 0
   CoinTotal: 100
+--- !u!114 &114978589381052978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628343607633338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05eab85876af03c488b0eb2c81b0f2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SqrMinimumDistanceBetweenBoats: 0.5
+  BoatDurability: 100
+  DamageFromImpactPer1UnitOfSpeed: 1
+  PushBackModifier: 100
+  floatingMultiplier: 1
 --- !u!136 &136635577357902268
 CapsuleCollider:
   m_ObjectHideFlags: 1
