@@ -51,8 +51,9 @@ public class Coin : MonoBehaviour {
 	}
 
 	public static void LoadCoins() {
-		for(int i = 0; i < coins.Length; i++) {
-			coins[i] = new Coin();
+		for (int i = 0; i < coins.Length; i++) {
+			GameObject newCoin = Instantiate(GameManager.gameManager().coinPrefab, GameManager.gameManager().coins.transform);
+			coins[i] = newCoin.GetComponent<Coin>();
 		}
 
 		//TODO Randomly distribute around level

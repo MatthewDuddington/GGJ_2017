@@ -25,8 +25,8 @@ public class IronPowerup : MonoBehaviour {
 
 	public static void LoadIronPowerups() {
 		for(int i = 0; i < ironPowerups.Length; i++) {
-			ironPowerups[i] = new IronPowerup();
-		}
+			GameObject newIronPowerup = Instantiate(GameManager.gameManager().ironPowerupPrefab, GameManager.gameManager().ironPowerups.transform);
+			ironPowerups[i] = newIronPowerup.GetComponent<IronPowerup>();		}
 
 		//TODO Randomly distribute around level
 	}
