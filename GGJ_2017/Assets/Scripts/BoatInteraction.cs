@@ -28,10 +28,10 @@ public class BoatInteraction : MonoBehaviour
           rb = GetComponent<Rigidbody>();
           collidingObject = null;
           water = GameObject.FindWithTag("Water").GetComponent<wave>();
-          xMax = (water.gameObject.transform.localScale * water.xSize / 2).x;
+          xMax = (water.gameObject.transform.localScale * water.xSize / 20).x;
           xMin = -xMax;
 
-          zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
+          zMax = (water.gameObject.transform.localScale * water.ySize / 20).z;
           zMin = -zMax;
           print(xMax);
 

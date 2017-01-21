@@ -11,28 +11,53 @@ public class FloatingBehaviourScript : MonoBehaviour {
      public float objectHalfHeight;
      float zeroWaterLevel;
 
-     // Use this for initialization
-     void Start () {
+
+    private float xMax;
+    private float xMin;
+    private float zMax;
+    private float zMin;
+
+    // Use this for initialization
+    void Start () {
           rb = GetComponent<Rigidbody>();
           water = GameObject.FindWithTag("Water").GetComponent<wave>();
-          zeroWaterLevel = water.transform.position.y;
-     }
+        zeroWaterLevel = water.transform.position.y;
+        xMax = (water.gameObject.transform.localScale * water.xSize / 20).x;
+        xMin = -xMax;
+
+        zMax = (water.gameObject.transform.localScale * water.ySize / 20).z;
+        zMin = -zMax;
+    }
 
      // Update is called once per frame
      void Update()
      {
-          simulateFloating();
+        if (gameObject.tag == "Player")
+        {
+            float x = transform.position.x,
+                z = transform.position.z;
+
+            if (x < xMax && x > xMin && z < zMax && z > zMin)
+            {
+                simulateFloating();
+            }
+            else
+                print("off the map");
+        }
+        else
+            simulateFloating();
      }
 
 
      void simulateFloating()
      {
+        
           if (water)
           {
                foreach (Transform point in floatingPoints)
                {
-                    float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time) - zeroWaterLevel;
-                    float currentYLocation = point.position.y;
+                    float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time);
+                    float currentYLocation = point.position.y - zeroWaterLevel;
                     if (currentYLocation < waterLevel)
                     {
                          Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + objectHalfHeight, 0f);
