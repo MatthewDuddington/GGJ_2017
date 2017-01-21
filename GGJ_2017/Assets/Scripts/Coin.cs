@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour {
 	void Start() {
 		enabled = false;
 		rigidbody = gameObject.GetComponent<Rigidbody>();
+		rigidbody.isKinematic = true;
 	}
 
 	public int Pickup() {
@@ -31,9 +32,11 @@ public class Coin : MonoBehaviour {
 
 	public void ThrowAway(Transform shipLocation) {
 		// Propel coin in random direction
-		transform.position = shipLocation.position + new Vector3(0, 2, 0);
+		rigidbody.isKinematic = false;
+		transform.position = shipLocation.position + new Vector3(0, 15, 0);
 		transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
-		rigidbody.AddRelativeForce(new Vector3(3000,5000,0));  //TODO define propper force
+		rigidbody.AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500),1500 + Random.Range(0, 3000),0));  //TODO define propper force
+		transform.Rotate(Vector3.up * Random.Range(0f, 359.999f));
 	}
 
 	void OnCollisionEnter(Collision coll) {

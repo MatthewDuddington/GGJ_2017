@@ -17,7 +17,6 @@ public class PlayerScript : MonoBehaviour {
     private int CoinTotal = 100;
 	private int numberOfCoinsToDropWhenHit = 10;
 	private float CoinToWeightRatio;
-	public Coin coinPrefab;
 
     public bool isIronclad_;
     private IronCladding ironcladding;
@@ -59,6 +58,7 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.GetComponent<PlayerScript>()) {
 			if (coll.gameObject.GetComponent<PlayerScript>().IsIronclad()) {
+				print("drop coins");
 				DropCoins(numberOfCoinsToDropWhenHit);
 			}
 			else {
@@ -72,7 +72,6 @@ public class PlayerScript : MonoBehaviour {
 		if (other.GetComponent<Coin>()) {
 			print("is a coin");
 			PickupCoins(other.GetComponent<Coin>().Pickup());
-			Destroy(other);
 		}
 		else if (other.GetComponent<IronPowerup>()) {
 			print("is some iron");

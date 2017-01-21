@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private float hori_joystick_axis;
     private float vert_joystick_axis;
-    public float joy_movement_speed = 12;
+    public float joy_movement_speed = 2;
     public float joy_rotation_speed = 0.05f;
 
 
@@ -59,7 +59,8 @@ public class PlayerMovement : MonoBehaviour {
         // Joy Add Forwards Force 
         if (Mathf.Abs(hori_axis) >= 0.3f || Mathf.Abs(vert_axis) >= 0.3)
         {
-            rb.AddRelativeForce(joy_movement_speed, 0.0f, 0.0f);
+            //rb.AddRelativeForce(joy_movement_speed, 0.0f, 0.0f);
+            rb.AddForce(joystick_position * joy_movement_speed);
         }
 
         // Joy Add Rotational lookat torque force
