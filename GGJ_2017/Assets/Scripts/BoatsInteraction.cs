@@ -19,11 +19,15 @@ public class BoatsInteraction : MonoBehaviour {
 
      public float boatHalfHeight;
 
+     public Transform[] hullFloatingPoints;
+     float zeroWaterLevel = 0f;
+
      // Use this for initialization
      void Start () {
           rb = GetComponent<Rigidbody>();
           collidingObject = null;
           water = GameObject.FindWithTag("Water").GetComponent<wave>();
+          zeroWaterLevel = water.transform.position.y;
      }
 	
 	// Update is called once per frame
@@ -36,21 +40,44 @@ public class BoatsInteraction : MonoBehaviour {
      {
           if (water)
           {
-               float zeroWaterLevel = 0f;
+               //float[] waterLevels = new float[4];
+               foreach (Transform point in hullFloatingPoints)
+               {
+                    float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time) - zeroWaterLevel,
+                         currentYLocation = point.position.y;
+                    if (currentYLocation < waterLevel)
+                    {
+                         Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
+                         rb.AddForceAtPosition(forceAmount / 4, point.transform.position);
+                         //rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
+                    }
+               }
 
-               float currentYLocation = transform.position.y,
-               waterLevel = water.ProbingFunction(transform.position.x, transform.position.z, Time.time)
-                    - zeroWaterLevel;
+
                //GetWaterLevelFunction
                //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
 
 
               // print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
 
-               if (currentYLocation < waterLevel)
-               {
-                    rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
-               }
+
+          }
+     }
+
+     void fourPointsFloating()
+     {
+          float currentYLocation = transform.position.y,
+          waterLevel = water.ProbingFunction(transform.position.x, transform.position.z, Time.time)
+               - zeroWaterLevel;
+          //GetWaterLevelFunction
+          //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
+
+
+          // print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
+
+          if (currentYLocation < waterLevel)
+          {
+               rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
           }
      }
 
