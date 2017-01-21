@@ -45,11 +45,11 @@ public class BoatsInteraction : MonoBehaviour {
                //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
 
 
-               print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
+              // print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
 
                if (currentYLocation < waterLevel)
                {
-                    rb.AddForce(0f, (waterLevel - currentYLocation + boatHalfHeight) * floatingMultiplier, 0f);
+                    rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
                }
           }
      }
@@ -58,6 +58,7 @@ public class BoatsInteraction : MonoBehaviour {
      {
           if (collision.gameObject.tag == "Player")
           {
+               print("Collision!");
                if (collidingObject)
                {
                     if ((collidingObject.transform.position - transform.position).sqrMagnitude >= SqrMinimumDistanceBetweenBoats)
