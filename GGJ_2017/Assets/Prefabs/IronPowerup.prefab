@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23310522178131146}
   - component: {fileID: 114456323443379352}
   m_Layer: 0
-  m_Name: IronCladding
+  m_Name: IronPowerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
