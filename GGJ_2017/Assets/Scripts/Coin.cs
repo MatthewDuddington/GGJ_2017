@@ -9,13 +9,13 @@ public class Coin : MonoBehaviour {
 
 	public int value = 10;
 
-	private bool isColectable_ = false;
+     private bool isColectable_;
 	private Rigidbody rigidbody;
 
 	void Start() {
 		enabled = false;
+          isColectable_ = true;
 		rigidbody = gameObject.GetComponent<Rigidbody>();
-		rigidbody.isKinematic = true;
 	}
 
 	public int Pickup() {
@@ -37,12 +37,6 @@ public class Coin : MonoBehaviour {
 		transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
 		rigidbody.AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500),1500 + Random.Range(0, 3000),0));  //TODO define propper force
 		transform.Rotate(Vector3.up * Random.Range(0f, 359.999f));
-	}
-
-	void OnCollisionEnter(Collision coll) {
-		if (coll.gameObject.tag == "Water") {
-			isColectable_ = true;
-		}
 	}
 
 	public static Coin GetNextCoin() {

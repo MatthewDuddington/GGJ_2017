@@ -23,9 +23,9 @@ public class IronCladding : MonoBehaviour {
 		enabled = false;
 	}
 
-	void OnCollision(Collision coll) {
-		if (coll.gameObject.GetComponent<PlayerScript>() || coll.gameObject.GetComponent<IronCladding>()) {
-			enabled = false;
-		}
-	}
+	//void OnCollision(Collision coll) {
+	//	if (coll.gameObject.GetComponent<PickUpScript>() || coll.gameObject.GetComponent<IronCladding>()) {
+	//		enabled = false;
+	//	}
+	//}
 }

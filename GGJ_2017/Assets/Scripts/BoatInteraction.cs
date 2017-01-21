@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatsInteraction : MonoBehaviour
+public class BoatInteraction : MonoBehaviour
 {
-
      public float SqrMinimumDistanceBetweenBoats;
      public float BoatDurability;
      public float DamageFromImpactPer1UnitOfSpeed;
@@ -16,14 +15,7 @@ public class BoatsInteraction : MonoBehaviour
 
      public float WavePushForce;
 
-     private float heightThreshold = 1f;
-     public float floatingMultiplier;
      private wave water;
-
-     public float boatHalfHeight;
-
-     public Transform[] hullFloatingPoints;
-     float zeroWaterLevel = 0f;
 
      private float xMax;
      private float xMin;
@@ -41,10 +33,9 @@ public class BoatsInteraction : MonoBehaviour
 
           zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
           zMin = -zMax;
-
-          zeroWaterLevel = water.transform.position.y;
           print(xMax);
 
+          ironcladding = gameObject.GetComponent<IronCladding>();
      }
 
      // Update is called once per frame
@@ -52,14 +43,14 @@ public class BoatsInteraction : MonoBehaviour
      {
           float x = transform.position.x,
                z = transform.position.z;
-        
+
+          speed = rb.velocity;
           if (x < xMax && x > xMin && z < zMax && z > zMin)
           {
-               speed = rb.velocity;
-               simulateFloating();
-
                addWaveForce();
           }
+          else
+               print("off the map");
      }
 
      private void addWaveForce()
@@ -69,55 +60,11 @@ public class BoatsInteraction : MonoBehaviour
           rb.AddForce(WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
      }
 
-     void simulateFloating()
+     void OnCollisionEnter(Collision collision)
      {
-          if (water)
-          {
-               //float[] waterLevels = new float[4];
-               foreach (Transform point in hullFloatingPoints)
-               {
-                    float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time) - zeroWaterLevel;
-                    float currentYLocation = point.position.y;
-                    if (currentYLocation < waterLevel)
-                    {
-                         Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
-                         rb.AddForceAtPosition(forceAmount / 4, point.transform.position);
-                         //Debug.DrawLine(point.transform.position, point.transform.position + forceAmount / 4);
-                         //rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
-                    }
-               }
-
-
-               //GetWaterLevelFunction
-               //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
-
-
-               // print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
-
-
-          }
-     }
-
-     void fourPointsFloating()
-     {
-          float currentYLocation = transform.position.y,
-          waterLevel = water.ProbingFunction(transform.position.x, transform.position.z, Time.time)
-               - zeroWaterLevel;
-          //GetWaterLevelFunction
-          //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
-
-
-          // print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
-
-          if (currentYLocation < waterLevel)
-          {
-               rb.AddForce(0f, (waterLevel - currentYLocation) * floatingMultiplier + boatHalfHeight, 0f);
-          }
-     }
-
-     private void OnCollisionEnter(Collision collision)
-     {
-          if (collision.gameObject.tag == "Player")
+          string tag = collision.gameObject.tag;
+          print("collision");
+          if (tag == "Player")
           {
                print("Collision!");
                if (collidingObject)
@@ -128,7 +75,7 @@ public class BoatsInteraction : MonoBehaviour
                if (!collidingObject)
                {
                     collidingObject = collision.gameObject;
-                    BoatsInteraction otherBoatScript = collidingObject.GetComponent<BoatsInteraction>();
+                    BoatInteraction otherBoatScript = collidingObject.GetComponent<BoatInteraction>();
 
                     Vector3 otherRBPreviousFrameSpeed = 2 * rb.velocity - speed;
                     Vector3 boatsAxis = collision.rigidbody.transform.position - rb.transform.position;
@@ -143,7 +90,71 @@ public class BoatsInteraction : MonoBehaviour
                     print("Normal = " + collision.contacts[0].normal);
                     rb.AddForceAtPosition(collision.impulse.magnitude * PushBackModifier * collision.contacts[0].normal, collision.contacts[0].point);
                     collision.rigidbody.AddForceAtPosition(collision.impulse.magnitude * PushBackModifier * -collision.contacts[0].normal, collision.contacts[0].point);
+
+                    //drop coins
+                    DropCoins(numberOfCoinsToDropWhenHit);
                }
           }
+          else if (tag == "Coin")
+          {
+               print("is a coin");
+               PickupCoins(collision.gameObject.GetComponent<Coin>().Pickup());
+               collision.gameObject.SetActive(false);
+
+          }
+          else if (tag == "Iron")
+          {
+               print("is some iron");
+               collision.gameObject.GetComponent<IronPowerup>().Pickup();
+               ironcladding.Equip();
+               StartCoroutine(IroncladPowerTimer());
+               Destroy(collision.gameObject);
+          }
+     }
+
+     private void DropCoins(int numberOfCoins)
+     {
+          CoinTotal -= numberOfCoins;
+          for (int i = numberOfCoins; i > 0; i--)
+          {
+               Coin.GetNextCoin().ThrowAway(transform);
+          }
+     }
+
+     private int CoinTotal = 100;
+     private int numberOfCoinsToDropWhenHit = 10;
+     private float CoinToWeightRatio;
+
+     public bool isIronclad_;
+     private IronCladding ironcladding;
+
+     public void PickupCoins(int numberOfCoins)
+     {
+          CoinTotal += numberOfCoins;
+          // TODO Update UI
+     }
+
+     public float Weight()
+     {
+          return CoinTotal * CoinToWeightRatio;
+     }
+
+     public bool IsIronclad()
+     {
+          return isIronclad_;
+     }
+
+
+     // TODO Update UI
+     // TODO Playsound "Clink clank kaplunk"
+
+
+     private IEnumerator IroncladPowerTimer()
+     {
+          isIronclad_ = true;
+          // TODO Playsound "Dun dun dun dun dun dun... (Jaws)"
+          yield return new WaitForSeconds(IronCladding.PowerupTime());
+          ironcladding.UnEquip();
+          isIronclad_ = false;
      }
 }
