@@ -14,35 +14,40 @@ public class PlayerScript : MonoBehaviour {
 
     public bool IsControllable;
 
-    public int CoinTotal = 100;
+    private int CoinTotal = 100;
 	private int numberOfCoinsToDropWhenHit = 10;
+	private float CoinToWeightRatio;
+	public Coin coinPrefab;
 
-    private bool isIronclad_;
+    public bool isIronclad_;
+    private IronCladding ironcladding;
 
 
 	// Use this for initialization
 	void Start () {
           rb = GetComponent<Rigidbody>();
           moving = false;
+
+          ironcladding = gameObject.GetComponent<IronCladding>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
           if (IsControllable)
           {
-               if (Input.GetKey(KeyCode.W))
+               if (Input.GetKey(KeyCode.S))
                {
                     rb.AddForce(0f, 0f, -CharacterSpeed);
                }
-               if (Input.GetKey(KeyCode.S))
+               if (Input.GetKey(KeyCode.W))
                {
                     rb.AddForce(0f, 0f, CharacterSpeed);
                }
-               if (Input.GetKey(KeyCode.A))
+               if (Input.GetKey(KeyCode.D))
                {
                     rb.AddForce(CharacterSpeed, 0f, 0f);
                }
-               if (Input.GetKey(KeyCode.D))
+               if (Input.GetKey(KeyCode.A))
                {
                     rb.AddForce(-CharacterSpeed, 0f, 0f);
                }
@@ -69,9 +74,10 @@ public class PlayerScript : MonoBehaviour {
 			PickupCoins(other.GetComponent<Coin>().Pickup());
 			Destroy(other);
 		}
-		else if (other.GetComponent<IronCladding>()) {
+		else if (other.GetComponent<IronPowerup>()) {
 			print("is some iron");
-			other.GetComponent<IronCladding>().Pickup();
+			other.GetComponent<IronPowerup>().Pickup();
+			ironcladding.Equip();
 			StartCoroutine(IroncladPowerTimer());
 			Destroy(other);
 		} 
@@ -85,21 +91,28 @@ public class PlayerScript : MonoBehaviour {
     	// TODO Update UI
     }
 
+    public float Weight() {
+    	return CoinTotal * CoinToWeightRatio;
+    }
+
     public bool IsIronclad() {
     	return isIronclad_;
     }
 
     private void DropCoins(int numberOfCoins) {
     	CoinTotal -= numberOfCoins;
-    	// TODO Spawn a set of coins around the boat (use Coin.ThrowAway() after instantiating)
+    	for (int i = numberOfCoins; i > 0; i--) {
+    		Coin.GetNextCoin().ThrowAway(transform);
+    	}
     	// TODO Update UI
     	// TODO Playsound "Clink clank kaplunk"
     }
 
-    IEnumerator IroncladPowerTimer() {
+    private IEnumerator IroncladPowerTimer() {
     	isIronclad_ = true;
     	// TODO Playsound "Dun dun dun dun dun dun... (Jaws)"
     	yield return new WaitForSeconds(IronCladding.PowerupTime());
+    	ironcladding.UnEquip();
     	isIronclad_ = false;
     }
 }
