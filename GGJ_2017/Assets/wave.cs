@@ -30,16 +30,17 @@ public class wave : MonoBehaviour {
           return Mathf.Sin(time * speed + distance * rippleLength) * scale;
      }
 
-     void CalculateNormal(float x, float z, float time)
+     public Vector3 CalculateNormal(float x, float z, float time)
      {
           float epsilon = 0.1f;
           float y1 = ProbingFunction(x - epsilon, z, time),
-               y2 = ProbingFunction(x + epsilon, z, time);
+               y2 = ProbingFunction(x + epsilon, z, time),
+               y = ProbingFunction(x, z, time);
 
-          Vector2 diff = new Vector2(x - epsilon, y1) - new Vector2(x + epsilon, y2);
-
-
-          //Vector2 v = Vector2(x - rippleX, z - rippleZ)
+          Vector3 v1 = new Vector3(x - epsilon, y1, 0f) - new Vector3(x + epsilon, y2, 0f);
+          Vector3 v2 = new Vector3(x, y, z - epsilon) - new Vector3(x, y, z + epsilon);
+          Vector3 norm = Vector3.Cross(v1, v2).normalized;
+          return -norm;
      }
 
 
