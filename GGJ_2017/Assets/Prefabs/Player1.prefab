@@ -348,6 +348,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1531928514565428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4220623773726446}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1567287008011968
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +754,19 @@ Transform:
   m_Father: {fileID: 4931388457676246}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4220623773726446
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1531928514565428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78, y: 7.4, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4599582716984134}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4307684454544458
 Transform:
   m_ObjectHideFlags: 1
@@ -945,7 +973,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
   m_LocalRotation: {x: -0, y: 0.11275253, z: -0, w: 0.99362314}
-  m_LocalPosition: {x: -174, y: 10, z: 0.7800951}
+  m_LocalPosition: {x: -17.3, y: 10, z: -13.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4931388457676246}
@@ -955,6 +983,7 @@ Transform:
   - {fileID: 4343951987970482}
   - {fileID: 4495978659938776}
   - {fileID: 4178887231140686}
+  - {fileID: 4220623773726446}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 12.948001, z: 0}
@@ -1491,9 +1520,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3cf1b0db928fc4ea503f686a2528da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
-  joy_movement_speed: 200
-  joy_rotation_speed: 1000
+  playerID: 2
+  back_boat: {fileID: 4220623773726446}
+  joy_movement_speed: 500
+  joy_rotation_speed: 500
   key_forwards: 0
   key_rotation: 0
   key_movement_speed: 100
@@ -1532,8 +1562,6 @@ MonoBehaviour:
   DamageFromImpactPer1UnitOfSpeed: 1
   PushBackModifier: 100
   WavePushForce: 200
-  CharacterSpeed: 0
-  JumpStrength: 0
   isIronclad_: 0
 --- !u!137 &137858192116817656
 SkinnedMeshRenderer:
@@ -1548,7 +1576,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5ca8d00435815764ba349fb3aa237306, type: 2}
+  - {fileID: 2100000, guid: 4a742da6e84adcb40932f6d1c34b842f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
