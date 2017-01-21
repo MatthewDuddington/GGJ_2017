@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class wave : MonoBehaviour {
-     public float scale;
+     public float scaleZ;
+  public float meshWidthZ;
+  public float meshWidthX;
      public float speed;
      public float rippleX;
      public float rippleZ;
@@ -25,14 +27,18 @@ public class wave : MonoBehaviour {
   public float ProbingFunction2(float x, float z, float time) {
     float distance = new Vector2(x - rippleX, z - rippleZ).magnitude;
     //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
-    return -Mathf.Pow(Mathf.Abs(Mathf.Sin(time * speed + distance * rippleLength)), 1) * scale;
+    return -Mathf.Pow(Mathf.Abs(Mathf.Sin(time * speed + distance * rippleLength)), 1) * scaleZ;
   }
   public float ProbingFunction(float x, float z, float time) {
 
           float distance = new Vector2(x - rippleX, z - rippleZ).magnitude;
           //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
-          return Mathf.Sin(time * speed + distance * rippleLength) * scale;
+          return Mathf.Sin(time * speed + distance * rippleLength) * scaleZ;
      }
+  public float ProbingSideWaves(float x, float z, float time) {
+    
+    return - Mathf.Pow(Mathf.Abs( Mathf.Sin( time * speed + x * xLength + z * zLength  ) ), 1) * scaleZ;
+  }
 
      public Vector3 CalculateNormal(float x, float z, float time)
      {
@@ -55,7 +61,7 @@ public class wave : MonoBehaviour {
           vertices = new Vector3[(xSize + 1) * (ySize + 1)];
           for (int i = 0, y = -ySize / 2; y <= ySize / 2; y++) {
                for (int x = -xSize / 2; x <= xSize / 2; x++, i++) {
-                    vertices[i] = new Vector3(x, 0, y);
+                    vertices[i] = new Vector3(x*meshWidthX, 0, y*meshWidthZ);
                }
           }
           mesh.vertices = vertices;
@@ -88,7 +94,7 @@ public class wave : MonoBehaviour {
                Vector3 vertex = baseHeight[i];
                Vector3 globalVertex = transform.TransformPoint(vertex);
                //vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x + baseHeight[i].y + baseHeight[i].z + position.x + position.y + position.z) * scale;
-               vertex.y = ProbingFunction2(globalVertex.x, globalVertex.z, Time.time);
+               vertex.y = ProbingSideWaves(globalVertex.x, globalVertex.z, Time.time);
 
                //vertex.y += Mathf.PerlinNoise(baseHeight[i].x + noiseWalk, baseHeight[i].y + Mathf.Sin(Time.time * 0.1f)) * noiseStrength;
                vertices[i] = vertex;
