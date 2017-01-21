@@ -906,7 +906,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531731741601502}
   m_LocalRotation: {x: -0.2999443, y: 0.03194589, z: -0.010051087, w: -0.9533687}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 18.52016, y: 62.24971, z: -90.52377}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4599582716984134}
@@ -945,7 +945,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
   m_LocalRotation: {x: -0, y: 0.11275253, z: -0, w: 0.99362314}
-  m_LocalPosition: {x: -174, y: 10, z: 0.7800951}
+  m_LocalPosition: {x: -77.741455, y: 10, z: 0.7800951}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4931388457676246}
@@ -1428,7 +1428,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531731741601502}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 5
   m_Drag: 3
   m_AngularDrag: 4
   m_UseGravity: 1
@@ -1458,7 +1458,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 24, y: 7, z: 14}
@@ -1492,6 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
+  back_boat: {fileID: 0}
   joy_movement_speed: 200
   joy_rotation_speed: 1000
   key_forwards: 0
@@ -1532,8 +1533,8 @@ MonoBehaviour:
   DamageFromImpactPer1UnitOfSpeed: 1
   PushBackModifier: 100
   WavePushForce: 200
-  CharacterSpeed: 0
-  JumpStrength: 0
+  numberOfCoinsToDropWhenHit: 10
+  CoinToWeightRatio: 1
   isIronclad_: 0
 --- !u!137 &137858192116817656
 SkinnedMeshRenderer:

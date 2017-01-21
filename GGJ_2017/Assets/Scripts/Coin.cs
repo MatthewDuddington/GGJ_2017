@@ -10,12 +10,12 @@ public class Coin : MonoBehaviour {
 	public int value = 10;
 
      private bool isColectable_;
-	private Rigidbody rigidbody;
+	private Rigidbody rb;
 
 	void Start() {
 		enabled = false;
           isColectable_ = true;
-		rigidbody = gameObject.GetComponent<Rigidbody>();
+		rb = gameObject.GetComponent<Rigidbody>();
 	}
 
 	public int Pickup() {
@@ -32,10 +32,10 @@ public class Coin : MonoBehaviour {
 
 	public void ThrowAway(Transform shipLocation) {
 		// Propel coin in random direction
-		rigidbody.isKinematic = false;
+		rb.isKinematic = false;
 		transform.position = shipLocation.position + new Vector3(0, 15, 0);
 		transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
-		rigidbody.AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500),1500 + Random.Range(0, 3000),0));  //TODO define propper force
+		rb.AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500),1500 + Random.Range(0, 3000),0));  //TODO define propper force
 		transform.Rotate(Vector3.up * Random.Range(0f, 359.999f));
 	}
 
