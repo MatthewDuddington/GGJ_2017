@@ -73,7 +73,7 @@ InputManager:
     m_Name: p1_key_forward
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: s
     positiveButton: w
     altNegativeButton: 
     altPositiveButton: 
@@ -89,7 +89,7 @@ InputManager:
     m_Name: p2_key_forward
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: down
     positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
@@ -115,7 +115,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 0
-    axis: 3
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: p2_key_rotate
