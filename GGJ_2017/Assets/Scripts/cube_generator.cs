@@ -58,4 +58,9 @@ public class cube_generator : MonoBehaviour
             }
         }
     }
+
+     public float getWaterLevelAt(Vector2 pos)
+     {
+          return cubeGrid[(int)pos.x + x_grid_size/2, (int)pos.y + z_grid_size/2].transform.position.y;
+     }
 }
