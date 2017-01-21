@@ -22,12 +22,8 @@ public class wave : MonoBehaviour {
      private void Start() {
           Generate();
      }
-  public float ProbingFunction2(float x, float z, float time) {
-    float distance = new Vector2(x - rippleX, z - rippleZ).magnitude;
-    //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
-    return -Mathf.Pow(Mathf.Abs(Mathf.Sin(time * speed + distance * rippleLength)), 2) * scale;
-  }
-  public float ProbingFunction(float x, float z, float time) {
+
+     public float ProbingFunction(float x, float z, float time) {
 
           float distance = new Vector2(x - rippleX, z - rippleZ).magnitude;
           //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
