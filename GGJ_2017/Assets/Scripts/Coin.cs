@@ -30,7 +30,7 @@ public class Coin : MonoBehaviour {
 	}
 
 	public void ThrowAway(Transform shipLocation) {
-		// TODO Propel coin in random direction
+		// Propel coin in random direction
 		transform.position = shipLocation.position + new Vector3(0, 2, 0);
 		transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
 		rigidbody.AddRelativeForce(new Vector3(3000,5000,0));  //TODO define propper force
@@ -48,6 +48,14 @@ public class Coin : MonoBehaviour {
 			currentCoinsIndex = 0;
 		}
 		return coins[currentCoinsIndex];
+	}
+
+	public static void LoadCoins() {
+		for(int i = 0; i < coins.Length; i++) {
+			coins[i] = new Coin();
+		}
+
+		//TODO Randomly distribute around level
 	}
 
 }
