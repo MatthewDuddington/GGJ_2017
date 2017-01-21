@@ -32,3 +32,8 @@ sysinfo.txt
 *.unitypackage
 
 GGJ_2017/Temp/UnityLockfile
+GGJ_2017/Assets/Plugins.meta
+GGJ_2017/Assets/Sources.meta
+GGJ_2017/Assets/Sources/Artwork.meta
+GGJ_2017/Assets/Sources/Artwork/Materials.meta
+GGJ_2017/Assets/Sources/~ControlScripts.meta
