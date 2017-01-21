@@ -22,6 +22,14 @@ public class BoatInteraction : MonoBehaviour
      private float zMax;
      private float zMin;
 
+
+     private int CoinTotal = 100;
+     public int numberOfCoinsToDropWhenHit = 10;
+     public float CoinToWeightRatio;
+
+     public bool isIronclad_;
+     private IronCladding ironcladding;
+
      // Use this for initialization
      void Start()
      {
@@ -100,6 +108,7 @@ public class BoatInteraction : MonoBehaviour
                print("is a coin");
                PickupCoins(collision.gameObject.GetComponent<Coin>().Pickup());
                collision.gameObject.SetActive(false);
+               rb.mass += CoinToWeightRatio;
 
           }
           else if (tag == "Iron")
@@ -120,13 +129,6 @@ public class BoatInteraction : MonoBehaviour
                Coin.GetNextCoin().ThrowAway(transform);
           }
      }
-
-     private int CoinTotal = 100;
-     private int numberOfCoinsToDropWhenHit = 10;
-     private float CoinToWeightRatio;
-
-     public bool isIronclad_;
-     private IronCladding ironcladding;
 
      public void PickupCoins(int numberOfCoins)
      {
