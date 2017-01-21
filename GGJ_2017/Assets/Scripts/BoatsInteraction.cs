@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoatsCollision : MonoBehaviour {
+public class BoatsInteraction : MonoBehaviour {
 
      public float SqrMinimumDistanceBetweenBoats;
      public float BoatDurability;
@@ -15,10 +15,16 @@ public class BoatsCollision : MonoBehaviour {
 
      private float heightThreshold = 1f;
      public float floatingMultiplier;
+     private GameObject water;
+
+     private float boatHalfHeight;
+
      // Use this for initialization
      void Start () {
           rb = GetComponent<Rigidbody>();
           collidingObject = null;
+          water = GameObject.FindWithTag("Water");
+          boatHalfHeight = 5f;
      }
 	
 	// Update is called once per frame
@@ -29,10 +35,16 @@ public class BoatsCollision : MonoBehaviour {
 
      void simulateFloating()
      {
-          float currentHeight = transform.position.y;
-          if (currentHeight < heightThreshold)
+          float zeroWaterLevel = 0f;
+          float waterLevel = water.GetComponent<cube_generator>().
+               getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
+               currentYLocation = transform.position.y;
+
+          print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
+
+          if (currentYLocation < waterLevel)
           {
-               rb.AddForce(0f, (heightThreshold - currentHeight) * floatingMultiplier, 0f);
+               rb.AddForce(0f, (waterLevel - currentYLocation + boatHalfHeight) * floatingMultiplier, 0f);
           }
      }
 
@@ -48,7 +60,7 @@ public class BoatsCollision : MonoBehaviour {
                if (!collidingObject)
                {
                     collidingObject = collision.gameObject;
-                    BoatsCollision otherBoatScript = collidingObject.GetComponent<BoatsCollision>();
+                    BoatsInteraction otherBoatScript = collidingObject.GetComponent<BoatsInteraction>();
 
                     Vector3 otherRBPreviousFrameSpeed = 2 * rb.velocity - speed;
                     Vector3 boatsAxis = collision.rigidbody.transform.position - rb.transform.position;
