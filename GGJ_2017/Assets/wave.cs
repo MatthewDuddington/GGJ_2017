@@ -30,13 +30,16 @@ public class wave : MonoBehaviour {
     return Mathf.Sin(time * speed + distance * rippleLength) * scale;
   }
 
+
+  
+
   private void Generate() {
     mesh = GetComponent<MeshFilter>().mesh;
     mesh.name = "Procedural Grid";
 
     vertices = new Vector3[(xSize + 1) * (ySize + 1)];
-    for (int i = 0, y = 0; y <= ySize; y++) {
-      for (int x = 0; x <= xSize; x++, i++) {
+    for (int i = 0, y = -ySize / 2; y <= ySize/2; y++) {
+      for (int x = -xSize/2; x <= xSize/2; x++, i++) {
         vertices[i] = new Vector3(x,0, y);
       }
     }
