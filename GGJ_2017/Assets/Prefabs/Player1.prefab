@@ -886,8 +886,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
-  m_LocalRotation: {x: -0, y: 0.603934, z: -0, w: 0.7970343}
-  m_LocalPosition: {x: -75.13681, y: 10, z: 3.5127275}
+  m_LocalRotation: {x: 0.00000008570583, y: 0.70841855, z: -0.000000086024706, w: 0.70579255}
+  m_LocalPosition: {x: 23.621271, y: -38.2, z: 102.17578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4931388457676246}
@@ -1419,7 +1419,7 @@ MonoBehaviour:
   playerID: 2
   joy_movement_speed: 60
   joy_rotation_speed: 0.05
-  key_movement_speed: 100
+  key_movement_speed: 50
   key_rotation_speed: 100
 --- !u!114 &114948017011079384
 MonoBehaviour:
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82ea75554f15316488cd117465cfe01f, type: 3}
   m_Name: 
@@ -1435,14 +1435,16 @@ MonoBehaviour:
   CharacterSpeed: 20
   JumpStrength: 100
   IsControllable: 0
-  CoinTotal: 100
+  coinPrefab: {fileID: 114329077756385048, guid: 94681463d555e4779a90910b9ba836c3,
+    type: 2}
+  isIronclad_: 0
 --- !u!114 &114978589381052978
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05eab85876af03c488b0eb2c81b0f2bf, type: 3}
   m_Name: 
