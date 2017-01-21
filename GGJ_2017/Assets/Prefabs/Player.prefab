@@ -112,6 +112,7 @@ MonoBehaviour:
   SqrMinimumDistanceBetweenBoats: 0.4
   BoatDurability: 100
   DamageFromImpactPer1UnitOfSpeed: 1
+  PushBackModifier: 100
 --- !u!114 &114666787860325046
 MonoBehaviour:
   m_ObjectHideFlags: 1

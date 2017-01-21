@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour {
      private bool moving;
      private Vector3 destination;
 
+     public bool IsControllable;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,24 +23,26 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.W))
+          if (IsControllable)
           {
-               rb.AddForce(0f, 0f, -CharacterSpeed);
+               if (Input.GetKey(KeyCode.W))
+               {
+                    rb.AddForce(0f, 0f, -CharacterSpeed);
+               }
+               if (Input.GetKey(KeyCode.S))
+               {
+                    rb.AddForce(0f, 0f, CharacterSpeed);
+               }
+               if (Input.GetKey(KeyCode.A))
+               {
+                    rb.AddForce(CharacterSpeed, 0f, 0f);
+               }
+               if (Input.GetKey(KeyCode.D))
+               {
+                    rb.AddForce(-CharacterSpeed, 0f, 0f);
+               }
+               if (Input.GetKeyDown(KeyCode.Space))
+                    rb.AddForce(0f, JumpStrength, 0f);
           }
-          if (Input.GetKey(KeyCode.S))
-          {
-               rb.AddForce(0f, 0f, CharacterSpeed);
-          }
-          if (Input.GetKey(KeyCode.A))
-          {
-               rb.AddForce(CharacterSpeed, 0f, 0f);
-          }
-          if (Input.GetKey(KeyCode.D))
-          {
-               rb.AddForce(-CharacterSpeed, 0f, 0f);
-          }
-          if (Input.GetKeyDown(KeyCode.Space))
-               rb.AddForce(0f, JumpStrength, 0f);
      }
-
 }
