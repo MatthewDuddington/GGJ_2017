@@ -22,20 +22,25 @@ public class BoatInteraction : MonoBehaviour
      private float zMax;
      private float zMin;
 
+
+     public int CoinTotal = 100;
+     public int numberOfCoinsToDropWhenHit = 10;
+     public float CoinToWeightRatio;
+
+     public bool isIronclad_;
+
      // Use this for initialization
      void Start()
      {
           rb = GetComponent<Rigidbody>();
           collidingObject = null;
           water = GameObject.FindWithTag("Water").GetComponent<wave>();
-          xMax = (water.gameObject.transform.localScale * water.xSize / 20).x;
+          xMax = (water.gameObject.transform.localScale * water.xSize / 2).x;
           xMin = -xMax;
 
-          zMax = (water.gameObject.transform.localScale * water.ySize / 20).z;
+          zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
           zMin = -zMax;
           print(xMax);
-
-          ironcladding = gameObject.GetComponent<IronCladding>();
      }
 
      // Update is called once per frame
@@ -92,23 +97,37 @@ public class BoatInteraction : MonoBehaviour
                     collision.rigidbody.AddForceAtPosition(collision.impulse.magnitude * PushBackModifier * -collision.contacts[0].normal, collision.contacts[0].point);
 
                     //drop coins
+
+                    if (isIronclad_)
+                    {
+                         if (collidingObject.GetComponent<BoatInteraction>().isIronclad_)
+                         {
+
+                         }
+                         else
+                         {
+
+                         }
+                         isIronclad_ = false;
+                    }
+
                     DropCoins(numberOfCoinsToDropWhenHit);
                }
           }
           else if (tag == "Coin")
           {
                print("is a coin");
-               PickupCoins(collision.gameObject.GetComponent<Coin>().Pickup());
+               CoinTotal += collision.gameObject.GetComponent<Coin>().value;
                collision.gameObject.SetActive(false);
-
+               rb.mass += CoinToWeightRatio;
           }
           else if (tag == "Iron")
           {
                print("is some iron");
-               collision.gameObject.GetComponent<IronPowerup>().Pickup();
-               ironcladding.Equip();
-               StartCoroutine(IroncladPowerTimer());
+               collision.gameObject.SetActive(false);
                Destroy(collision.gameObject);
+
+               isIronclad_ = true;
           }
      }
 
@@ -120,13 +139,6 @@ public class BoatInteraction : MonoBehaviour
                Coin.GetNextCoin().ThrowAway(transform);
           }
      }
-
-     private int CoinTotal = 100;
-     private int numberOfCoinsToDropWhenHit = 10;
-     private float CoinToWeightRatio;
-
-     public bool isIronclad_;
-     private IronCladding ironcladding;
 
      public void PickupCoins(int numberOfCoins)
      {
@@ -147,14 +159,4 @@ public class BoatInteraction : MonoBehaviour
 
      // TODO Update UI
      // TODO Playsound "Clink clank kaplunk"
-
-
-     private IEnumerator IroncladPowerTimer()
-     {
-          isIronclad_ = true;
-          // TODO Playsound "Dun dun dun dun dun dun... (Jaws)"
-          yield return new WaitForSeconds(IronCladding.PowerupTime());
-          ironcladding.UnEquip();
-          isIronclad_ = false;
-     }
 }
