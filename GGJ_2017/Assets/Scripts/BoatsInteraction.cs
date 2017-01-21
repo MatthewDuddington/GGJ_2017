@@ -39,7 +39,7 @@ public class BoatsInteraction : MonoBehaviour {
 
           float currentYLocation = transform.position.y,
           waterLevel = water.GetComponent<wave>().
-          ProbingFunction(transform.position.x, transform.position.z, Time.time);
+          ProbingFunction(transform.position.x, transform.position.z, Time.time) - zeroWaterLevel;
                //GetWaterLevelFunction
                //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
                
