@@ -25,7 +25,7 @@ public class wave : MonoBehaviour {
   public float ProbingFunction2(float x, float z, float time) {
     float distance = new Vector2(x - rippleX, z - rippleZ).magnitude;
     //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
-    return -Mathf.Pow(Mathf.Abs(Mathf.Sin(time * speed + distance * rippleLength)), 2) * scale;
+    return -Mathf.Pow(Mathf.Abs(Mathf.Sin(time * speed + distance * rippleLength)), 1) * scale;
   }
   public float ProbingFunction(float x, float z, float time) {
 
@@ -88,7 +88,7 @@ public class wave : MonoBehaviour {
                Vector3 vertex = baseHeight[i];
                Vector3 globalVertex = transform.TransformPoint(vertex);
                //vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x + baseHeight[i].y + baseHeight[i].z + position.x + position.y + position.z) * scale;
-               vertex.y = ProbingFunction(globalVertex.x, globalVertex.z, Time.time);
+               vertex.y = ProbingFunction2(globalVertex.x, globalVertex.z, Time.time);
 
                //vertex.y += Mathf.PerlinNoise(baseHeight[i].x + noiseWalk, baseHeight[i].y + Mathf.Sin(Time.time * 0.1f)) * noiseStrength;
                vertices[i] = vertex;
