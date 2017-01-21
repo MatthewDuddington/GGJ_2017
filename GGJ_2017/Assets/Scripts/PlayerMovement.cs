@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public int playerID;
 
-
+    public Transform back_boat;
 
     private Rigidbody rb;
 
@@ -60,7 +60,8 @@ public class PlayerMovement : MonoBehaviour {
         if (Mathf.Abs(hori_axis) >= 0.3f || Mathf.Abs(vert_axis) >= 0.3)
         {
             //rb.AddRelativeForce(joy_movement_speed, 0.0f, 0.0f);
-            rb.AddForce(joystick_position * joy_movement_speed);
+            //rb.AddForce(joystick_position * joy_movement_speed);
+            rb.AddForceAtPosition(joystick_position * joy_movement_speed, back_boat.position);
         }
 
         // Joy Add Rotational lookat torque force
