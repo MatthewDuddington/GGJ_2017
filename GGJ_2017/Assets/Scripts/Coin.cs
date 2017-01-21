@@ -9,11 +9,12 @@ public class Coin : MonoBehaviour {
 
 	public int value = 10;
 
-	private bool isColectable_ = false;
+     private bool isColectable_;
 	private Rigidbody rigidbody;
 
 	void Start() {
 		enabled = false;
+          isColectable_ = true;
 		rigidbody = gameObject.GetComponent<Rigidbody>();
 	}
 
@@ -31,15 +32,11 @@ public class Coin : MonoBehaviour {
 
 	public void ThrowAway(Transform shipLocation) {
 		// Propel coin in random direction
-		transform.position = shipLocation.position + new Vector3(0, 2, 0);
+		rigidbody.isKinematic = false;
+		transform.position = shipLocation.position + new Vector3(0, 15, 0);
 		transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
-		rigidbody.AddRelativeForce(new Vector3(3000,5000,0));  //TODO define propper force
-	}
-
-	void OnCollisionEnter(Collision coll) {
-		if (coll.gameObject.tag == "Water") {
-			isColectable_ = true;
-		}
+		rigidbody.AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500),1500 + Random.Range(0, 3000),0));  //TODO define propper force
+		transform.Rotate(Vector3.up * Random.Range(0f, 359.999f));
 	}
 
 	public static Coin GetNextCoin() {
@@ -51,8 +48,9 @@ public class Coin : MonoBehaviour {
 	}
 
 	public static void LoadCoins() {
-		for(int i = 0; i < coins.Length; i++) {
-			coins[i] = new Coin();
+		for (int i = 0; i < coins.Length; i++) {
+			GameObject newCoin = Instantiate(GameManager.gameManager().coinPrefab, GameManager.gameManager().coins.transform);
+			coins[i] = newCoin.GetComponent<Coin>();
 		}
 
 		//TODO Randomly distribute around level

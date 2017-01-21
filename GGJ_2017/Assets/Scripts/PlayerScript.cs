@@ -17,7 +17,6 @@ public class PlayerScript : MonoBehaviour {
     private int CoinTotal = 100;
 	private int numberOfCoinsToDropWhenHit = 10;
 	private float CoinToWeightRatio;
-	public Coin coinPrefab;
 
     public bool isIronclad_;
     private IronCladding ironcladding;
@@ -30,32 +29,7 @@ public class PlayerScript : MonoBehaviour {
 
           ironcladding = gameObject.GetComponent<IronCladding>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-          if (IsControllable)
-          {
-               if (Input.GetKey(KeyCode.S))
-               {
-                    rb.AddForce(0f, 0f, -CharacterSpeed);
-               }
-               if (Input.GetKey(KeyCode.W))
-               {
-                    rb.AddForce(0f, 0f, CharacterSpeed);
-               }
-               if (Input.GetKey(KeyCode.D))
-               {
-                    rb.AddForce(CharacterSpeed, 0f, 0f);
-               }
-               if (Input.GetKey(KeyCode.A))
-               {
-                    rb.AddForce(-CharacterSpeed, 0f, 0f);
-               }
-               if (Input.GetKeyDown(KeyCode.Space))
-                    rb.AddForce(0f, JumpStrength, 0f);
-          }
-    }
-	
+
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.GetComponent<PlayerScript>()) {
 			if (coll.gameObject.GetComponent<PlayerScript>().IsIronclad()) {
@@ -70,20 +44,13 @@ public class PlayerScript : MonoBehaviour {
 	void OnTriggerEnter(Collider coll) {
 		GameObject other = coll.gameObject;
 		if (other.GetComponent<Coin>()) {
-			print("is a coin");
 			PickupCoins(other.GetComponent<Coin>().Pickup());
-			Destroy(other);
 		}
 		else if (other.GetComponent<IronPowerup>()) {
-			print("is some iron");
 			other.GetComponent<IronPowerup>().Pickup();
 			ironcladding.Equip();
 			StartCoroutine(IroncladPowerTimer());
-			Destroy(other);
 		} 
-		else {
-			print("is not a coin or iron");
-		}
 	}
 
     public void PickupCoins(int numberOfCoins) {
