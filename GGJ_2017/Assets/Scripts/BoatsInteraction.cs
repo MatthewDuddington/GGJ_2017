@@ -34,20 +34,23 @@ public class BoatsInteraction : MonoBehaviour {
 
      void simulateFloating()
      {
-          float zeroWaterLevel = 0f;
+          if (water)
+          {
+               float zeroWaterLevel = 0f;
 
-          float currentYLocation = transform.position.y,
-          waterLevel = water.ProbingFunction(transform.position.x, transform.position.z, Time.time)
-               - zeroWaterLevel;
+               float currentYLocation = transform.position.y,
+               waterLevel = water.ProbingFunction(transform.position.x, transform.position.z, Time.time)
+                    - zeroWaterLevel;
                //GetWaterLevelFunction
                //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
-               
 
-          print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
 
-          if (currentYLocation < waterLevel)
-          {
-               rb.AddForce(0f, (waterLevel - currentYLocation + boatHalfHeight) * floatingMultiplier, 0f);
+               print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
+
+               if (currentYLocation < waterLevel)
+               {
+                    rb.AddForce(0f, (waterLevel - currentYLocation + boatHalfHeight) * floatingMultiplier, 0f);
+               }
           }
      }
 
