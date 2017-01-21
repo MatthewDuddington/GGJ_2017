@@ -36,9 +36,13 @@ public class BoatsInteraction : MonoBehaviour {
      void simulateFloating()
      {
           float zeroWaterLevel = 0f;
-          float waterLevel = water.GetComponent<cube_generator>().
-               getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
-               currentYLocation = transform.position.y;
+
+          float currentYLocation = transform.position.y,
+          waterLevel = water.GetComponent<wave>().
+          ProbingFunction(transform.position.x, transform.position.z, Time.time);
+               //GetWaterLevelFunction
+               //getWaterLevelAt(new Vector2(transform.position.x, transform.position.z)) - zeroWaterLevel,
+               
 
           print("CurrentYLocation = " + currentYLocation + "; waterLevel = " + waterLevel);
 
