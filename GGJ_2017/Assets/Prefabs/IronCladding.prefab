@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33745427567741084}
   - component: {fileID: 136314174121591006}
   - component: {fileID: 23310522178131146}
-  - component: {fileID: 114592139838392396}
+  - component: {fileID: 114456323443379352}
   m_Layer: 0
   m_Name: IronCladding
   m_TagString: Untagged
@@ -81,7 +81,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020383076112904}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114592139838392396
+--- !u!114 &114456323443379352
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1020383076112904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260244c4562914760af9e840abe15f87, type: 3}
+  m_Script: {fileID: 11500000, guid: 65554123a517e4b13813204212341da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &136314174121591006
