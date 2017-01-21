@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class IronCladding : MonoBehaviour {
 
-	private float powerupTime_ = 6;
+	static private float powerupTime_ = 6;
 
-	public float PowerupTime() {
+	static public float PowerupTime() {
 		return powerupTime_;
 	}
 

@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour {
 
     public bool IsControllable;
 
-    private int CoinTotal = 0;
+    public int CoinTotal = 100;
 	private int numberOfCoinsToDropWhenHit = 10;
 
     private bool isIronclad_;
@@ -52,21 +52,31 @@ public class PlayerScript : MonoBehaviour {
     }
 	
 	void OnCollisionEnter(Collision coll) {
-		GameObject other = coll.gameObject;
-		if (other is Coin) {
-			PickupCoins(other.GetComponent<Coin>().Pickup());
-		}
-		else if (other is IronCladding) {
-			other.GetComponent<IronCladding>().Pickup());
-			StartCoroutine(IroncladPowerTimer());
-		}
-		else if (other.gameObject is PlayerScript) {
-			if (other.gameObject.GetComponent<PlayerScript>().IsIronclad()) {
+		if (coll.gameObject.GetComponent<PlayerScript>()) {
+			if (coll.gameObject.GetComponent<PlayerScript>().IsIronclad()) {
 				DropCoins(numberOfCoinsToDropWhenHit);
 			}
 			else {
 				// TODO Playsound "BOING"
 			}
+		}
+	}
+
+	void OnTriggerEnter(Collider coll) {
+		GameObject other = coll.gameObject;
+		if (other.GetComponent<Coin>()) {
+			print("is a coin");
+			PickupCoins(other.GetComponent<Coin>().Pickup());
+			Destroy(other);
+		}
+		else if (other.GetComponent<IronCladding>()) {
+			print("is some iron");
+			other.GetComponent<IronCladding>().Pickup();
+			StartCoroutine(IroncladPowerTimer());
+			Destroy(other);
+		} 
+		else {
+			print("is not a coin or iron");
 		}
 	}
 
