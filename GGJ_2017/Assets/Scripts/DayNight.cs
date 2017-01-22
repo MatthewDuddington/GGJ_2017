@@ -9,10 +9,10 @@ public class DayNight : MonoBehaviour {
   public float dayLength;
 
   private float timer;
-	void Start () {
-    timer = dayLength;
-    
-  }
+     void Start()
+     {
+          timer = dayLength;
+     }
 	
   void Update() {
     timer -= Time.deltaTime;

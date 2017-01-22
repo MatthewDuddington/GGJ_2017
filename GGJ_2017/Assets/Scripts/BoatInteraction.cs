@@ -45,6 +45,8 @@ public class BoatInteraction : MonoBehaviour
 
      public GameObject spawningCoinPrefab;
 
+     public GameObject audioManager;
+
      // Use this for initialization
      void Start()
      {
@@ -56,7 +58,9 @@ public class BoatInteraction : MonoBehaviour
 
           zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
           zMin = -zMax;
-         // print(xMax);
+          // print(xMax);
+
+          //audioManager = GetComponent<AudioSource>();
 
           collisionOccured = false;
      }
@@ -80,7 +84,7 @@ public class BoatInteraction : MonoBehaviour
      {
           Vector3 forceAmount = WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time);
           Debug.DrawLine(transform.position, transform.position + forceAmount / 4);
-          rb.AddForce(3*WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
+          rb.AddForce(WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
      }
 
      void OnCollisionEnter(Collision collision)
@@ -110,17 +114,19 @@ public class BoatInteraction : MonoBehaviour
                               if (otherBoatScript.isIronclad_)
                               {
                                    otherBoatScript.isIronclad_ = false;
-							       otherBoatScript.resetShipMaterials();
+                                   otherBoatScript.resetShipMaterials();
                                    //modify push back value here
                                    actualPushBackModifier *= 2;
                                    //sound of clang
+                                   audioManager.GetComponent<AudioManagerScript>().WoodMetalCollisionSound();
                               }
                               else
                               {
                                    otherBoatScript.CoinTotal -= numberOfCoinsToDropWhenHit;
                                    for (int i = numberOfCoinsToDropWhenHit; i > 0; i--)
-                                   {                                        
+                                   {
                                         GameObject coin = Instantiate(spawningCoinPrefab);
+                                        collision.gameObject.GetComponent<PlayerStats>().subtract_coins(10);
                                         coin.transform.position = collidingObject.transform.position + new Vector3(0, 15, 0);
                                         //coin.transform.localScale = new Vector3(1.5,1.5,1.5);
 
@@ -128,12 +134,29 @@ public class BoatInteraction : MonoBehaviour
                                         //coin.transform.rotation = Random.rotation;
                                         coin.transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
                                         coin.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500), 1500 + Random.Range(0, 3000), 0));  //TODO define propper force
+                                        audioManager.GetComponent<AudioManagerScript>().WoodMetalCollisionSound();
                                    }
                               }
                               isIronclad_ = false;
-							  resetShipMaterials();
+                              resetShipMaterials();
                          }
-
+                         else
+                         {
+                              if (otherBoatScript.isIronclad_)
+                              {
+                                   otherBoatScript.isIronclad_ = false;
+                                   otherBoatScript.resetShipMaterials();
+                                   //modify push back value here
+                                   actualPushBackModifier *= 2;
+                                   //sound of clang
+                                   audioManager.GetComponent<AudioManagerScript>().WoodMetalCollisionSound();
+                              }
+                              else
+                              {
+                                   audioManager.GetComponent<AudioManagerScript>().WoodWoodCollisionSound();
+                              }
+                              resetShipMaterials();
+                         }
                          //damage thing
                          Vector3 otherRBPreviousFrameSpeed = 2 * rb.velocity - speed;
                          Vector3 boatsAxis = collision.rigidbody.transform.position - rb.transform.position;
@@ -154,9 +177,14 @@ public class BoatInteraction : MonoBehaviour
           {
                print("is a coin");
                int receivedAmount = collision.gameObject.GetComponent<Coin>().value;
+               gameObject.GetComponent<PlayerStats>().pickup_coin();
                collision.gameObject.SetActive(false);
                rb.mass += CoinToWeightRatio * receivedAmount;
                CoinTotal += receivedAmount;
+
+               audioManager.GetComponent<AudioManagerScript>().GoldPickUpSound();
+
+               //FindObjectOfType<AudioSource>
           }
           else if (tag == "Iron")
           {
@@ -165,9 +193,16 @@ public class BoatInteraction : MonoBehaviour
                Destroy(collision.gameObject);
 
                isIronclad_ = true;
-               foreach(Material mat in hull.materials) {
-               		mat = ironMaterial;
-               }
+               for (int i = 0; i < hull.materials.Length; i++)
+                    hull.materials[i] = ironMaterial;
+
+               crowsnest.material = ironMaterial;
+               mast.material = ironMaterial;
+               sailLower.material = ironMaterial;
+               sailUpper.material = ironMaterial;
+               sail.material = ironMaterial;
+
+               audioManager.GetComponent<AudioManagerScript>().IronEquipedSound();
           }
      }
 
