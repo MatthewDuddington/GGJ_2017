@@ -95,15 +95,15 @@ public class wave : MonoBehaviour {
   public float ProbingFunction_Ripples(float x, float z, float time) {
     float distance = new Vector2(x - Ripples_MiddleX, z - Ripples_MiddleZ).magnitude;
     //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
-    return -Mathf.Abs(Mathf.Sin(time * Ripples_Speed + distance * Ripples_Length)) * Ripples_Amplitude;
+    return -Mathf.Abs(Mathf.Sin(time * Ripples_Speed + distance * Ripples_Length)) * Ripples_Amplitude + boundaryHeight;
   }
 
   public float ProbingFunction_Calm(float x, float z, float time) {
-    return Mathf.Sin(time * Calm_Speed + x * Calm_LengthX + z * Calm_LengthZ) * Calm_Amplitude;
+    return Mathf.Sin(time * Calm_Speed + x * Calm_LengthX + z * Calm_LengthZ) * Calm_Amplitude + boundaryHeight;
   }
 
   public float ProbingFunction_Storm(float x, float z, float time) {
-    return -Mathf.Abs(Mathf.Sin(time * Storm_Speed + x * Storm_LengthX + z * Storm_LengthZ)) * Storm_Amplitude;
+    return -Mathf.Abs(Mathf.Sin(time * Storm_Speed + x * Storm_LengthX + z * Storm_LengthZ)) * Storm_Amplitude + boundaryHeight;
   }
 
   public float LinearWeatherCombination(float x, float z, float time) {
@@ -172,7 +172,7 @@ public class wave : MonoBehaviour {
       Vector3 globalVertex = transform.TransformPoint(vertex);
       //vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x + baseHeight[i].y + baseHeight[i].z + position.x + position.y + position.z) * scale;
       if (boundaries[i] == 1) {
-        vertex.y = -boundaryHeight;
+        vertex.y = 0;
       } else {
         vertex.y = LinearWeatherCombination(globalVertex.x, globalVertex.z, Time.time);
       }
