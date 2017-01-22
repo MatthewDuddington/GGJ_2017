@@ -1378,6 +1378,16 @@ Prefab:
       propertyPath: joy_movement_speed
       value: 800
       objectReference: {fileID: 0}
+    - target: {fileID: 114303848191517324, guid: e19b2cf4cf72625439e8916c15293724,
+        type: 2}
+      propertyPath: key_movement_speed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114303848191517324, guid: e19b2cf4cf72625439e8916c15293724,
+        type: 2}
+      propertyPath: key_rotation_speed
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e19b2cf4cf72625439e8916c15293724, type: 2}
   m_IsPrefabParent: 0
