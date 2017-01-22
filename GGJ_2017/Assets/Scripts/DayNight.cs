@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class DayNight : MonoBehaviour {
 
-	private bool isTimePassing = true;
+  public float timeCycleSpeed;
 
-	private float timeCycleSpeed = 60;
+  public float dayLength;
 
+  private float timer;
 	void Start () {
-		StartCoroutine(TimeCycle());
-	}
+    timer = dayLength;
+    
+  }
 	
+  void Update() {
+    timer -= Time.deltaTime;
+    if (timer < 0) {
+      timer = dayLength;
+      
+      StartCoroutine(TimeCycle());
+    }
+  }
+
+
 	IEnumerator TimeCycle() {
-		while (isTimePassing) {
-			transform.Rotate(Vector3.right * (360 / timeCycleSpeed * Time.deltaTime));
+    print("boom");
+    float rotationAmount = 0;
+		while (rotationAmount < 180) {
+      float rotationDelta = (timeCycleSpeed * Time.deltaTime);
+      rotationAmount += rotationDelta;
+			transform.Rotate( Vector3.forward * rotationDelta );
 			yield return new WaitForFixedUpdate();
 		}
 	}
