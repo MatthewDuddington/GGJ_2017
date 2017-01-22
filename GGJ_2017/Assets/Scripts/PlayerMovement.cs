@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private Rigidbody rb;
 
-    private float hori_joystick_axis;
-    private float vert_joystick_axis;
+    public float hori_joystick_axis;
+    public float vert_joystick_axis;
     public float joy_movement_speed = 2;
     public float joy_rotation_speed = 0.05f;
 
