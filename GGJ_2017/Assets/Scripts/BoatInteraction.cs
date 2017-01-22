@@ -108,6 +108,7 @@ public class BoatInteraction : MonoBehaviour
                                    for (int i = numberOfCoinsToDropWhenHit; i > 0; i--)
                                    {                                        
                                         GameObject coin = Instantiate(spawningCoinPrefab);
+                                        collision.gameObject.GetComponent<PlayerStats>().subtract_coins(10);
                                         coin.transform.position = collidingObject.transform.position + new Vector3(0, 15, 0);
                                         //coin.transform.localScale = new Vector3(1.5,1.5,1.5);
 
@@ -140,6 +141,7 @@ public class BoatInteraction : MonoBehaviour
           {
                print("is a coin");
                int receivedAmount = collision.gameObject.GetComponent<Coin>().value;
+               gameObject.GetComponent<PlayerStats>().pickup_coin();
                collision.gameObject.SetActive(false);
                rb.mass += CoinToWeightRatio * receivedAmount;
                CoinTotal += receivedAmount;
