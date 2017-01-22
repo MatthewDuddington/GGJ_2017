@@ -109,7 +109,7 @@ public class BoatInteraction : MonoBehaviour
                                    {                                        
                                         GameObject coin = Instantiate(spawningCoinPrefab);
                                         coin.transform.position = collidingObject.transform.position + new Vector3(0, 15, 0);
-                                        coin.transform.localScale = new Vector3(2, 2, 2);
+                                        //coin.transform.localScale = new Vector3(1.5,1.5,1.5);
 
 
                                         //coin.transform.rotation = Random.rotation;
