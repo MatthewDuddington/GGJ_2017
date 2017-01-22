@@ -59,7 +59,7 @@ public class FloatingBehaviourScript : MonoBehaviour {
                foreach (Transform point in floatingPoints)
                {
                     float waterLevel = water.LinearWeatherCombination(point.position.x, point.position.z, Time.time);
-                    float currentYLocation = point.position.y - zeroWaterLevel;
+                    float currentYLocation = point.position.y - zeroWaterLevel - adjustment;
                     if (currentYLocation < waterLevel)
                     {
                          Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + objectHalfHeight, 0f);
