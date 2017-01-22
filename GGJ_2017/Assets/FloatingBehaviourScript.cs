@@ -9,6 +9,8 @@ public class FloatingBehaviourScript : MonoBehaviour {
      public Transform[] floatingPoints;
      public float floatingMultiplier;
      public float objectHalfHeight;
+
+     public float verticalAdjustment;
      float zeroWaterLevel;
 
 
@@ -32,34 +34,26 @@ public class FloatingBehaviourScript : MonoBehaviour {
      // Update is called once per frame
      void Update()
      {
-        if (gameObject.tag == "Player")
-        {
-            float x = transform.position.x,
-                z = transform.position.z;
+          float x = transform.position.x,
+              z = transform.position.z;
 
-            if (x < xMax && x > xMin && z < zMax && z > zMin)
-            {
-                simulateFloating();
-            }
-            //else
-            //    print("off the map");
-        }
-        else
-            simulateFloating();
+          if (x < xMax && x > xMin && z < zMax && z > zMin)
+          {
+               simulateFloating();
+          }
+          //else
+          //    print("off the map");
      }
 
 
      void simulateFloating()
-     {
-          float adjustment = 0f;
+     {          
           if (water)
           {
-               if (gameObject.tag == "Coin")
-                    adjustment = 15;
                foreach (Transform point in floatingPoints)
                {
                     float waterLevel = water.LinearWeatherCombination(point.position.x, point.position.z, Time.time);
-                    float currentYLocation = point.position.y - zeroWaterLevel - adjustment;
+                    float currentYLocation = point.position.y - zeroWaterLevel - verticalAdjustment;
                     if (currentYLocation < waterLevel)
                     {
                          Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + objectHalfHeight, 0f);
