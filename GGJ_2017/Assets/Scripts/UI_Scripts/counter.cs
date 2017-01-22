@@ -26,7 +26,7 @@ public class counter : MonoBehaviour {
     void Update()
     {
         //then where you need:
-        txtRef.text = "Time: " + Time.time;
+        txtRef.text = "" + Time.time;
     }
 }
 
