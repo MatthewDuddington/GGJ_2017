@@ -198,6 +198,11 @@ Prefab:
       propertyPath: player1
       value: 
       objectReference: {fileID: 1107393031}
+    - target: {fileID: 114025867090393892, guid: 241ca113557492d499c4d7dd97b76554,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 241ca113557492d499c4d7dd97b76554, type: 2}
   m_IsPrefabParent: 0
