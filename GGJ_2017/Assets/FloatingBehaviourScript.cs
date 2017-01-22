@@ -41,8 +41,8 @@ public class FloatingBehaviourScript : MonoBehaviour {
             {
                 simulateFloating();
             }
-            else
-                print("off the map");
+            //else
+            //    print("off the map");
         }
         else
             simulateFloating();
@@ -51,9 +51,11 @@ public class FloatingBehaviourScript : MonoBehaviour {
 
      void simulateFloating()
      {
-        
+          float adjustment = 0f;
           if (water)
           {
+               if (gameObject.tag == "Coin")
+                    adjustment = 15;
                foreach (Transform point in floatingPoints)
                {
                     float waterLevel = water.LinearWeatherCombination(point.position.x, point.position.z, Time.time);

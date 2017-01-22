@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject ironPowerups;
 
 	void Start() {
-		Coin.LoadCoins();
-		IronPowerup.LoadIronPowerups();
+		//Coin.LoadCoins();
+		//IronPowerup.LoadIronPowerups();
 	}
 
 	public static GameManager gameManager() {

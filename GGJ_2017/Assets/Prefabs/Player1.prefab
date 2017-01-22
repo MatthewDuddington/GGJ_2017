@@ -1072,7 +1072,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
   m_LocalRotation: {x: -0, y: 0.11275253, z: -0, w: 0.99362314}
-  m_LocalPosition: {x: 2.77, y: 12.23657, z: 4.64}
+  m_LocalPosition: {x: -5.5, y: 10, z: -16.7}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4411545054132432}
@@ -1548,7 +1548,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628343607633338}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 24, y: 7, z: 14}
@@ -1697,8 +1697,8 @@ MonoBehaviour:
   joy_rotation_speed: 500
   key_forwards: 0
   key_rotation: 0
-  key_movement_speed: 1000
-  key_rotation_speed: 1000
+  key_movement_speed: 50
+  key_rotation_speed: 50
 --- !u!114 &114491608659584702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1733,7 +1733,12 @@ MonoBehaviour:
   DamageFromImpactPer1UnitOfSpeed: 1
   PushBackModifier: 100
   WavePushForce: 200
+  CoinTotal: 100
+  numberOfCoinsToDropWhenHit: 10
+  CoinToWeightRatio: 0.1
   isIronclad_: 0
+  spawningCoinPrefab: {fileID: 1573190493575892, guid: 01d159832cd32ae47b11f44c7c211949,
+    type: 2}
 --- !u!138 &138993625901898030
 FixedJoint:
   m_ObjectHideFlags: 1
