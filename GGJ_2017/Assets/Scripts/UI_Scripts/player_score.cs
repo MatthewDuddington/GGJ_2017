@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class get_player_score : MonoBehaviour {
 
-    public float player1_score = 0.1f;
+
+    public GameObject player1;
 
     private Text txtRef;
+
     private void Awake()
     {
+
         txtRef = GetComponent<Text>();//or provide from somewhere else (e.g. if you want via find GameObject.Find("CountText").GetComponent<Text>();)
     }
 
@@ -22,7 +25,7 @@ public class get_player_score : MonoBehaviour {
 
     // Update is called once per frame
 	void Update () {
-    //then where you need:
-    txtRef.text = "Player 1: " + player1_score;
+        //then where you need:
+        txtRef.text = "" + player1.GetComponent<PlayerStats>().get_score();
 	}
 }
