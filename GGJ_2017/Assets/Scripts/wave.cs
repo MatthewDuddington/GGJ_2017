@@ -44,6 +44,54 @@ public class wave : MonoBehaviour {
     Generate();
   }
 
+  //16
+  public void BigSetter(float[] input) {
+    Ripples_Speed = input[0];
+    Ripples_Length = input[1];
+    Ripples_Amplitude = input[2];
+    Ripples_MiddleX = input[3];
+    Ripples_MiddleZ = input[4];
+
+    Storm_Speed = input[5];
+    Storm_Amplitude = input[6];
+    Storm_LengthX = input[7];
+    Storm_LengthZ = input[8];
+
+    Calm_Speed = input[9];
+    Calm_Amplitude = input[10];
+    Calm_LengthX = input[11];
+    Calm_LengthZ = input[12];
+
+    Storm_coeff = input[13];
+    Calm_coeff = input[14];
+    Ripple_coeff = input[15];
+  }
+
+  public float[] BigGetter() {
+    float[] result = new float[16];
+    result[0] = Ripples_Speed;
+    result[1] = Ripples_Length;
+    result[2] = Ripples_Amplitude;
+    result[3] = Ripples_MiddleX;
+    result[4] = Ripples_MiddleZ;
+
+    result[5] = Storm_Speed;
+    result[6] = Storm_Amplitude;
+    result[7] = Storm_LengthX;
+    result[8] = Storm_LengthZ;
+
+    result[9] = Calm_Speed;
+    result[10] = Calm_Amplitude;
+    result[11] = Calm_LengthX;
+    result[12] = Calm_LengthZ;
+
+    result[13] = Storm_coeff;
+    result[14] = Calm_coeff;
+    result[15] = Ripple_coeff;
+
+    return result;
+  }
+
   public float ProbingFunction_Ripples(float x, float z, float time) {
     float distance = new Vector2(x - Ripples_MiddleX, z - Ripples_MiddleZ).magnitude;
     //return Mathf.Sin(time * speed + x * xLength + z * zLength) * scale;
@@ -51,14 +99,14 @@ public class wave : MonoBehaviour {
   }
 
   public float ProbingFunction_Calm(float x, float z, float time) {
-    return Mathf.Sin(time * Calm_Speed + x * Calm_LengthX +  z * Calm_LengthZ) * Calm_Amplitude;
+    return Mathf.Sin(time * Calm_Speed + x * Calm_LengthX + z * Calm_LengthZ) * Calm_Amplitude;
   }
 
   public float ProbingFunction_Storm(float x, float z, float time) {
     return -Mathf.Abs(Mathf.Sin(time * Storm_Speed + x * Storm_LengthX + z * Storm_LengthZ)) * Storm_Amplitude;
   }
 
-  public float LinearWeatherCombination( float x, float z, float time) {
+  public float LinearWeatherCombination(float x, float z, float time) {
     return Storm_coeff * ProbingFunction_Storm(x, z, time) +
       Ripple_coeff * ProbingFunction_Ripples(x, z, time) +
        Calm_coeff * ProbingFunction_Calm(x, z, time);
@@ -108,7 +156,7 @@ public class wave : MonoBehaviour {
     mesh.triangles = triangles;
     mesh.RecalculateNormals();
 
-    print("size vertices: " + mesh.vertices.Length + " tiangle rarray size: " + mesh.triangles.Length);
+    //print("size vertices: " + mesh.vertices.Length + " tiangle rarray size: " + mesh.triangles.Length);
   }
 
 
@@ -124,7 +172,7 @@ public class wave : MonoBehaviour {
       Vector3 globalVertex = transform.TransformPoint(vertex);
       //vertex.y += Mathf.Sin(Time.time * speed + baseHeight[i].x + baseHeight[i].y + baseHeight[i].z + position.x + position.y + position.z) * scale;
       if (boundaries[i] == 1) {
-        vertex.y = - boundaryHeight;
+        vertex.y = -boundaryHeight;
       } else {
         vertex.y = LinearWeatherCombination(globalVertex.x, globalVertex.z, Time.time);
       }

@@ -44,7 +44,7 @@ public class BoatInteraction : MonoBehaviour
 
           zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
           zMin = -zMax;
-          print(xMax);
+         // print(xMax);
 
           collisionOccured = false;
      }
