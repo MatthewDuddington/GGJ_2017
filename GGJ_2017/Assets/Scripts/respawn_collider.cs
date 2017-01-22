@@ -18,10 +18,10 @@ public class respawn_collider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.GetComponent<PlayerLifes>() != null)
+        if (collision.GetComponent<PlayerStats>() != null)
         {
-            collision.GetComponent<PlayerLifes>().loseLife();
-            if (collision.GetComponent<PlayerLifes>().getLife() == 0)
+            collision.GetComponent<PlayerStats>().loseLife();
+            if (collision.GetComponent<PlayerStats>().getLife() == 0)
             {
                 // Change game mode to End Game
                 SceneManager.LoadScene(4, LoadSceneMode.Single);
