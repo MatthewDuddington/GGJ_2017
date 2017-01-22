@@ -5,9 +5,10 @@ using UnityEngine;
 public class AudioManagerScript : MonoBehaviour {
 
      public AudioClip[] clips;
-     private AudioSource source;
+     public AudioSource source;
 	// Use this for initialization
 	void Start () {
+        print(GetComponents<AudioSource>().Length);
           source = GetComponents<AudioSource>()[1];
 	}
 	

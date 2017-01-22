@@ -108,7 +108,7 @@ public class WeatherManagerScript : MonoBehaviour
 
      void Start()
      {
-          print("length: " + Robert_Calm.Length + " " + Robert_Ripple.Length + " " + Robert_Storm.Length + " " + Robert_Tranq.Length);
+          //print("length: " + Robert_Calm.Length + " " + Robert_Ripple.Length + " " + Robert_Storm.Length + " " + Robert_Tranq.Length);
           waveScript = GetComponent<wave>();
           current_stage = 0;
           currentWeather = 0;
@@ -124,33 +124,49 @@ public class WeatherManagerScript : MonoBehaviour
           do
           {
 
-               random = Random.Range(0, 4);
+               random = Random.Range(0, 6);
           } while (currentWeather == random);
           print("random number: " + random);
 
 
           if (random == 0)
           {
-               StartCoroutine(ChangeWeather(Robert_Ripple));
-               currentWeather = 0;
+            //StartCoroutine(ChangeWeather(Robert_Ripple));
+            StartCoroutine((ChangeWeather(Nicks_Calm)));
+            currentWeather = 0;
           }
           else if (random == 1)
           {
-               StartCoroutine(ChangeWeather(Robert_Storm));
-               currentWeather = 1;
+            //   StartCoroutine(ChangeWeather(Robert_Storm));
+            StartCoroutine((ChangeWeather(Nicks_Calm_Ripples)));
+            currentWeather = 1;
           }
           else if (random == 2)
           {
-               StartCoroutine(ChangeWeather(Robert_Tranq));
-               currentWeather = 2;
+            //StartCoroutine(ChangeWeather(Robert_Tranq));
+            StartCoroutine((ChangeWeather(Nicks_PreStorm)));
+            currentWeather = 2;
           }
           else if (random == 3)
           {
-               StartCoroutine(ChangeWeather(Robert_Calm));
-               currentWeather = 3;
+            //StartCoroutine(ChangeWeather(Robert_Calm));
+            StartCoroutine((ChangeWeather(Nicks_Storm)));
+            currentWeather = 3;
           }
+        else if (random == 4)
+        {
+            //StartCoroutine(ChangeWeather(Robert_Calm));
+            StartCoroutine((ChangeWeather(Nicks_Tsunami)));
+            currentWeather = 4;
+        }
+        else if (random == 5)
+        {
+            //StartCoroutine(ChangeWeather(Robert_Calm));
+            StartCoroutine((ChangeWeather(Nicks_Ripples)));
+            currentWeather = 5;
+        }
 
-          print("hardcode!");
+        //print("hardcode!");
      }
 
      void DeployNextWeather(int stageNumber)
@@ -212,9 +228,9 @@ public class WeatherManagerScript : MonoBehaviour
                if (timer < 0)
                {
                     timer = stageLengths[current_stage];
-                    //DeployRandomWeather();
-                    DeployNextWeather(current_stage);
-                    players[0].GetComponent<BoatInteraction>().WavePushForce = wavePushingForces[current_stage];
+                    DeployRandomWeather();
+                    //DeployNextWeather(current_stage);
+                    //players[0].GetComponent<BoatInteraction>().WavePushForce = wavePushingForces[current_stage];
 
                     current_stage++;
                     if (current_stage > 5)

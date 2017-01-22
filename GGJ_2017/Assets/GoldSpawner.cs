@@ -43,7 +43,7 @@ public class GoldSpawner : MonoBehaviour {
     if ( timer < 0) {
       timer = Period();
       Spawn();
-      print("SPAWN!");
+      //print("SPAWN!");
     }
 	}
 }

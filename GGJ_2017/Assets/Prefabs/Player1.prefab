@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 65396837027627330}
   - component: {fileID: 138993625901898030}
   - component: {fileID: 114491608659584702}
+  - component: {fileID: 114886078673272260}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -1699,8 +1700,8 @@ MonoBehaviour:
   joy_rotation_speed: 0.1
   key_forwards: 0
   key_rotation: 0
-  key_movement_speed: 50
-  key_rotation_speed: 50
+  key_movement_speed: 100
+  key_rotation_speed: 100
 --- !u!114 &114491608659584702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1719,6 +1720,24 @@ MonoBehaviour:
   - {fileID: 4343951987970482}
   floatingMultiplier: 1000
   objectHalfHeight: 1000
+  verticalAdjustment: 0
+--- !u!114 &114886078673272260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628343607633338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc330c35c337984a8538c96c6029560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 5
+  coins_Score: 0
+  player_skulls:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114978589381052978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1735,11 +1754,26 @@ MonoBehaviour:
   DamageFromImpactPer1UnitOfSpeed: 1
   PushBackModifier: 100
   WavePushForce: 200
+  normalHullMaterial: {fileID: 2100000, guid: 587028a6c27121e48b993de6b7ac84f1, type: 2}
+  normalDarkHullMaterial: {fileID: 2100000, guid: 0ab0d9b296cb6464896c95fe1be43b31,
+    type: 2}
+  normalWoodMaterial: {fileID: 2100000, guid: 6abf63045b5c56c439980b78c627535b, type: 2}
+  normalEdgeMaterial: {fileID: 2100000, guid: 071ca25915c96964393307a958265fd7, type: 2}
+  normalSailMaterial: {fileID: 2100000, guid: 5ca8d00435815764ba349fb3aa237306, type: 2}
+  ironMaterial: {fileID: 2100000, guid: f73e62c021522418f83ef6ca8f1a176e, type: 2}
+  hull: {fileID: 23947228713490512}
+  crowsnest: {fileID: 23059762946562934}
+  mast: {fileID: 23083171793267354}
+  sailLower: {fileID: 23767059248050800}
+  sailUpper: {fileID: 23689572315253274}
+  sail: {fileID: 23068364745922852}
   CoinTotal: 100
   numberOfCoinsToDropWhenHit: 10
   CoinToWeightRatio: 0.1
   isIronclad_: 0
   spawningCoinPrefab: {fileID: 1573190493575892, guid: 01d159832cd32ae47b11f44c7c211949,
+    type: 2}
+  audioManager: {fileID: 1195967067464764, guid: a46c2c1bef9f0204bb2fc345a064e32d,
     type: 2}
 --- !u!138 &138993625901898030
 FixedJoint:
