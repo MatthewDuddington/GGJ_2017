@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class counter : MonoBehaviour {
 
-    public float timer = 60;
+    public float timer = 2;
 
     private Text txtRef;
 
@@ -26,7 +27,14 @@ public class counter : MonoBehaviour {
     void Update()
     {
         //then where you need:
-        txtRef.text = "" + Time.time;
+        timer = timer - Time.deltaTime;
+        txtRef.text = "" + (int)timer;
+
+        if( timer <= 0)
+        {
+            SceneManager.LoadScene(4, LoadSceneMode.Single);
+
+        }
     }
 }
 
