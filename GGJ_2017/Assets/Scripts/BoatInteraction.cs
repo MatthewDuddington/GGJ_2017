@@ -68,7 +68,7 @@ public class BoatInteraction : MonoBehaviour
      {
           Vector3 forceAmount = WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time);
           Debug.DrawLine(transform.position, transform.position + forceAmount / 4);
-          rb.AddForce(WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
+          rb.AddForce(3*WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
      }
 
      void OnCollisionEnter(Collision collision)
