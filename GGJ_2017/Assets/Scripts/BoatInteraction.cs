@@ -23,6 +23,18 @@ public class BoatInteraction : MonoBehaviour
      private float zMax;
      private float zMin;
 
+     public Material normalHullMaterial;
+     public Material normalDarkHullMaterial;
+     public Material normalWoodMaterial;
+     public Material normalEdgeMaterial;
+     public Material normalSailMaterial;
+     public Material ironMaterial;
+     public MeshRenderer hull;
+     public MeshRenderer crowsnest;
+	 public MeshRenderer mast;
+	 public MeshRenderer sailLower;
+	 public MeshRenderer sailUpper;
+	 public MeshRenderer sail;
 
      public int CoinTotal = 100;
      public int numberOfCoinsToDropWhenHit = 10;
@@ -68,7 +80,7 @@ public class BoatInteraction : MonoBehaviour
      {
           Vector3 forceAmount = WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time);
           Debug.DrawLine(transform.position, transform.position + forceAmount / 4);
-          rb.AddForce(WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
+          rb.AddForce(3*WavePushForce * water.CalculateNormal(transform.position.x, transform.position.z, Time.time));
      }
 
      void OnCollisionEnter(Collision collision)
@@ -98,6 +110,7 @@ public class BoatInteraction : MonoBehaviour
                               if (otherBoatScript.isIronclad_)
                               {
                                    otherBoatScript.isIronclad_ = false;
+							       otherBoatScript.resetShipMaterials();
                                    //modify push back value here
                                    actualPushBackModifier *= 2;
                                    //sound of clang
@@ -119,6 +132,7 @@ public class BoatInteraction : MonoBehaviour
                                    }
                               }
                               isIronclad_ = false;
+							  resetShipMaterials();
                          }
 
                          //damage thing
@@ -153,6 +167,9 @@ public class BoatInteraction : MonoBehaviour
                Destroy(collision.gameObject);
 
                isIronclad_ = true;
+               foreach(Material mat in hull.materials) {
+               		mat = ironMaterial;
+               }
           }
      }
 
@@ -172,6 +189,16 @@ public class BoatInteraction : MonoBehaviour
           return isIronclad_;
      }
 
+     public void resetShipMaterials() {
+     	hull.materials[0] = normalDarkHullMaterial;
+     	hull.materials[1] = normalHullMaterial;
+     	hull.materials[2] = normalEdgeMaterial;
+		crowsnest.material = normalWoodMaterial;
+		mast.material = normalWoodMaterial;
+		sailLower.material = normalWoodMaterial;
+		sailUpper.material = normalWoodMaterial;
+		sail.material = normalSailMaterial;
+     }
 
      // TODO Update UI
      // TODO Playsound "Clink clank kaplunk"
