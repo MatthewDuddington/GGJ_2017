@@ -91,15 +91,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf72303f5fc4d4f469fb2cb62ff2870e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleZ: 1.61
+  Ripples_Speed: 0
+  Ripples_Length: 0
+  Ripples_Amplitude: 0
+  Ripples_MiddleX: 4
+  Ripples_MiddleZ: -10
+  Storm_Speed: 1
+  Storm_Amplitude: 2
+  Storm_LengthX: 0.4
+  Storm_LengthZ: 0.4
+  Calm_Speed: 0
+  Calm_Amplitude: 0
+  Calm_LengthX: 0
+  Calm_LengthZ: 0
+  Storm_coeff: 1
+  Calm_coeff: 0
+  Ripple_coeff: 0
+  boundaryHeight: 4.73
   meshWidthZ: 0.1
   meshWidthX: 0.1
-  speed: 1
-  rippleX: 3.99
-  rippleZ: -10.3
   xLength: 0.3
-  rippleLength: -0.32
   zLength: 0.3
   middle: {fileID: 0}
-  xSize: 200
-  ySize: 200
+  xSize: 100
+  ySize: 100
