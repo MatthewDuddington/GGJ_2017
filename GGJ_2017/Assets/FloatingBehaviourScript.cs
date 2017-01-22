@@ -56,7 +56,7 @@ public class FloatingBehaviourScript : MonoBehaviour {
           {
                foreach (Transform point in floatingPoints)
                {
-                    float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time);
+                    float waterLevel = water.LinearWeatherCombination(point.position.x, point.position.z, Time.time);
                     float currentYLocation = point.position.y - zeroWaterLevel;
                     if (currentYLocation < waterLevel)
                     {
