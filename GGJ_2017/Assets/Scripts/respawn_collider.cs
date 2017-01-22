@@ -24,7 +24,7 @@ public class respawn_collider : MonoBehaviour {
             if (collision.GetComponent<PlayerLifes>().getLife() == 0)
             {
                 // Change game mode to End Game
-                SceneManager.LoadScene(0, LoadSceneMode.Single);
+                SceneManager.LoadScene(4, LoadSceneMode.Single);
             }  
         }
            
