@@ -41,8 +41,8 @@ public class FloatingBehaviourScript : MonoBehaviour {
             {
                 simulateFloating();
             }
-            else
-                print("off the map");
+            //else
+            //    print("off the map");
         }
         else
             simulateFloating();
@@ -51,13 +51,15 @@ public class FloatingBehaviourScript : MonoBehaviour {
 
      void simulateFloating()
      {
-        
+          float adjustment = 0f;
           if (water)
           {
+               if (gameObject.tag == "Coin")
+                    adjustment = 15;
                foreach (Transform point in floatingPoints)
                {
                     float waterLevel = water.ProbingFunction(point.position.x, point.position.z, Time.time);
-                    float currentYLocation = point.position.y - zeroWaterLevel;
+                    float currentYLocation = point.position.y - zeroWaterLevel - adjustment;
                     if (currentYLocation < waterLevel)
                     {
                          Vector3 forceAmount = new Vector3(0f, (waterLevel - currentYLocation) * floatingMultiplier + objectHalfHeight, 0f);

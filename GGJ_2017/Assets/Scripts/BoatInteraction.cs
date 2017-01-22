@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BoatInteraction : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class BoatInteraction : MonoBehaviour
      public float CoinToWeightRatio;
 
      public bool isIronclad_;
+     private static bool collisionOccured;
+
+     public GameObject spawningCoinPrefab;
 
      // Use this for initialization
      void Start()
@@ -41,6 +45,8 @@ public class BoatInteraction : MonoBehaviour
           zMax = (water.gameObject.transform.localScale * water.ySize / 2).z;
           zMin = -zMax;
           print(xMax);
+
+          collisionOccured = false;
      }
 
      // Update is called once per frame
@@ -68,10 +74,8 @@ public class BoatInteraction : MonoBehaviour
      void OnCollisionEnter(Collision collision)
      {
           string tag = collision.gameObject.tag;
-          print("collision");
           if (tag == "Player")
           {
-               print("Collision!");
                if (collidingObject)
                {
                     if ((collidingObject.transform.position - transform.position).sqrMagnitude >= SqrMinimumDistanceBetweenBoats)
@@ -79,47 +83,66 @@ public class BoatInteraction : MonoBehaviour
                }
                if (!collidingObject)
                {
-                    collidingObject = collision.gameObject;
-                    BoatInteraction otherBoatScript = collidingObject.GetComponent<BoatInteraction>();
-
-                    Vector3 otherRBPreviousFrameSpeed = 2 * rb.velocity - speed;
-                    Vector3 boatsAxis = collision.rigidbody.transform.position - rb.transform.position;
-                    float damageToTheSecond = Vector3.Project(rb.velocity, boatsAxis).magnitude;
-                    float damageToTheFirst = Vector3.Project(otherRBPreviousFrameSpeed, boatsAxis).magnitude;
-
-                    BoatDurability -= damageToTheFirst * DamageFromImpactPer1UnitOfSpeed;
-
-                    otherBoatScript.BoatDurability -= damageToTheSecond * otherBoatScript.DamageFromImpactPer1UnitOfSpeed;
-                    print("Damage1 = " + damageToTheFirst + "; Damage2 = " + damageToTheSecond);
-
-                    print("Normal = " + collision.contacts[0].normal);
-                    rb.AddForceAtPosition(collision.impulse.magnitude * PushBackModifier * collision.contacts[0].normal, collision.contacts[0].point);
-                    collision.rigidbody.AddForceAtPosition(collision.impulse.magnitude * PushBackModifier * -collision.contacts[0].normal, collision.contacts[0].point);
-
-                    //drop coins
-
-                    if (isIronclad_)
+                    if (collisionOccured)
+                         collisionOccured = false;
+                    else
                     {
-                         if (collidingObject.GetComponent<BoatInteraction>().isIronclad_)
-                         {
+                         collisionOccured = true;
+                         collidingObject = collision.gameObject;
+                         BoatInteraction otherBoatScript = collidingObject.GetComponent<BoatInteraction>();
 
-                         }
-                         else
+                         float actualPushBackModifier = PushBackModifier;
+                         //ironclad thing
+                         if (isIronclad_)
                          {
+                              if (otherBoatScript.isIronclad_)
+                              {
+                                   otherBoatScript.isIronclad_ = false;
+                                   //modify push back value here
+                                   actualPushBackModifier *= 2;
+                                   //sound of clang
+                              }
+                              else
+                              {
+                                   otherBoatScript.CoinTotal -= numberOfCoinsToDropWhenHit;
+                                   for (int i = numberOfCoinsToDropWhenHit; i > 0; i--)
+                                   {                                        
+                                        GameObject coin = Instantiate(spawningCoinPrefab);
+                                        coin.transform.position = collidingObject.transform.position + new Vector3(0, 15, 0);
+                                        coin.transform.localScale = new Vector3(2, 2, 2);
 
+
+                                        //coin.transform.rotation = Random.rotation;
+                                        coin.transform.Rotate(Vector3.up, Random.Range(0f, 359.999f));
+                                        coin.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(1000 + Random.Range(0, 1500), 1500 + Random.Range(0, 3000), 0));  //TODO define propper force
+                                   }
+                              }
+                              isIronclad_ = false;
                          }
-                         isIronclad_ = false;
+
+                         //damage thing
+                         Vector3 otherRBPreviousFrameSpeed = 2 * rb.velocity - speed;
+                         Vector3 boatsAxis = collision.rigidbody.transform.position - rb.transform.position;
+                         float damageToTheSecond = Vector3.Project(rb.velocity, boatsAxis).magnitude;
+                         float damageToTheFirst = Vector3.Project(otherRBPreviousFrameSpeed, boatsAxis).magnitude;
+
+                         BoatDurability -= damageToTheFirst * DamageFromImpactPer1UnitOfSpeed;
+
+                         otherBoatScript.BoatDurability -= damageToTheSecond * otherBoatScript.DamageFromImpactPer1UnitOfSpeed;
+
+                         //pushback thing
+                         rb.AddForceAtPosition(collision.impulse.magnitude * actualPushBackModifier * collision.contacts[0].normal, collision.contacts[0].point);
+                         collision.rigidbody.AddForceAtPosition(collision.impulse.magnitude * actualPushBackModifier * -collision.contacts[0].normal, collision.contacts[0].point);
                     }
-
-                    DropCoins(numberOfCoinsToDropWhenHit);
                }
           }
           else if (tag == "Coin")
           {
                print("is a coin");
-               CoinTotal += collision.gameObject.GetComponent<Coin>().value;
+               int receivedAmount = collision.gameObject.GetComponent<Coin>().value;
                collision.gameObject.SetActive(false);
-               rb.mass += CoinToWeightRatio;
+               rb.mass += CoinToWeightRatio * receivedAmount;
+               CoinTotal += receivedAmount;
           }
           else if (tag == "Iron")
           {
@@ -128,15 +151,6 @@ public class BoatInteraction : MonoBehaviour
                Destroy(collision.gameObject);
 
                isIronclad_ = true;
-          }
-     }
-
-     private void DropCoins(int numberOfCoins)
-     {
-          CoinTotal -= numberOfCoins;
-          for (int i = numberOfCoins; i > 0; i--)
-          {
-               Coin.GetNextCoin().ThrowAway(transform);
           }
      }
 
